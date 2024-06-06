@@ -1,4 +1,3 @@
-// barra-navegacion.js
 class BarraNavegacion extends HTMLElement {
     constructor() {
         super();
@@ -24,7 +23,7 @@ class BarraNavegacion extends HTMLElement {
                     <a href="#" class="navbar-brand">
                         <h1 class="text-primary m-0"><span class="text-dark">VIDA</span> SALUDABLE</h1>
                     </a>
-                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -44,25 +43,46 @@ class BarraNavegacion extends HTMLElement {
         return `
         <style>
             @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
-            .navbar {
-                padding: 1rem 0; 
-                min-height: 80px; 
+            
+            .nav-bar {
+                background-color: #f8f9fa;
             }
+
+            .navbar {
+                padding: 1rem 0;
+                min-height: 80px;
+            }
+
             .navbar-brand h1 {
                 margin: 0;
                 font-size: 2rem;
                 font-weight: bold;
             }
+
             .text-primary {
-                color: #007bff !important;
+                color: #007bff;
             }
+
             .text-dark {
-                color: #343a40 !important;
+                color: #343a40;
+            }
+
+            .navbar-nav .nav-link {
+                color: #343a40;
+                transition: color 0.3s;
+            }
+
+            .navbar-nav .nav-link.active {
+                color: #007bff;
+            }
+
+            .navbar-nav .nav-link:hover {
+                color: #0056b3;
             }
 
             @media (max-width: 767px) {
                 .navbar {
-                    min-height: 60px; 
+                    min-height: 60px;
                 }
                 .navbar-brand h1 {
                     font-size: 1.5rem;
@@ -76,4 +96,5 @@ class BarraNavegacion extends HTMLElement {
         this.remove();
     }
 }
+
 window.customElements.define('barra-navegacion', BarraNavegacion);
