@@ -7,12 +7,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Módulo ES -->
-    <script type="module" src="main/barra-navegacion.js"></script>
+    <script  src="main/barra-navegacion.js"></script>
+    <script  src="main/contacto.js"></script>
 </head>
 <body>
     <!-- Web component -->
     <barra-navegacion></barra-navegacion>
+    <menu-desplegable></menu-desplegable>
+    <doctor-contact
+        img-src="https://hips.hearstapps.com/hmg-prod/images/portrait-of-a-happy-young-doctor-in-his-clinic-royalty-free-image-1661432441.jpg?crop=0.66698xw:1xh;center,top&resize=1200:*"
+        img-width="200px"
+        img-height="200px"
+        name="Dr. Juan Pérez"
+        email="dr.juanperez@example.com"
+        phone="+34 600 123 456"
+        address="Calle Falsa 123, 28080 Madrid, España">
+    </doctor-contact>
 
+    <doctor-contact
+        img-src="https://img.freepik.com/foto-gratis/hermosa-joven-doctora-mirando-camara-oficina_1301-7807.jpg?size=626&ext=jpg&ga=GA1.1.933601817.1717545600&semt=sph"
+        img-width="200px"
+        img-height="200px"
+        name="Dra. Ana García"
+        email="dra.anagarcia@example.com"
+        phone="+34 600 789 012"
+        address="Calle Verdadera 456, 28090 Madrid, España">
+    </doctor-contact>
     
 </body>
 </html>
