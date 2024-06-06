@@ -17,7 +17,8 @@ class DoctorContact extends HTMLElement {
             'name',
             'email',
             'phone',
-            'address'
+            'address',
+            'role' // Nuevo atributo
         ];
         attributeMapping.forEach(key => {
             if (!this.attributes[key]) {
@@ -39,6 +40,7 @@ class DoctorContact extends HTMLElement {
             <img id="doctor-image" src="${this.attributes['img-src'].value}" alt="Doctor Image" style="width: ${this.attributes['img-width'].value}; height: ${this.attributes['img-height'].value};">
             <div class="contact-info">
                 <h2 id="doctor-name">${this.attributes.name.value}</h2>
+                <p><strong>Rol:</strong> <span id="doctor-role">${this.attributes.role.value}</span></p> <!-- Nuevo campo de rol -->
                 <p><strong>Email:</strong> <span id="doctor-email">${this.attributes.email.value}</span></p>
                 <p><strong>Teléfono:</strong> <span id="doctor-phone">${this.attributes.phone.value}</span></p>
                 <p><strong>Dirección:</strong> <span id="doctor-address">${this.attributes.address.value}</span></p>
@@ -95,14 +97,19 @@ class DoctorContact extends HTMLElement {
 window.customElements.define('doctor-contact', DoctorContact);
 
 
-
 class ContactComponent extends HTMLElement {
     constructor() {
         super();
         this.shadowDOM = this.attachShadow({ mode: 'open' });
+        this.isRegistering = false; // Estado del formulario
     }
 
     connectedCallback() {
+        this.render();
+    }
+
+    toggleForm() {
+        this.isRegistering = !this.isRegistering;
         this.render();
     }
 
@@ -111,21 +118,71 @@ class ContactComponent extends HTMLElement {
             ${this.templateCss()}
             ${this.template()}
         `;
+
+        // Añadir eventos a los botones
+        const registerButton = this.shadowDOM.querySelector('.register-button');
+        const cancelButton = this.shadowDOM.querySelector('.cancel-button');
+        
+        if (registerButton) {
+            registerButton.addEventListener('click', () => this.toggleForm());
+        }
+        
+        if (cancelButton) {
+            cancelButton.addEventListener('click', () => this.toggleForm());
+        }
     }
 
     template() {
+        return this.isRegistering ? this.registrationTemplate() : this.contactTemplate();
+    }
+
+    contactTemplate() {
         return `
         <div class="contact-card">
             <div class="contact-info">
                 <h2>Contacto</h2>
                 <form>
-                    <label for="name">Nombre</label>
-                    <input type="text" id="name" name="name" required>
                     <label for="email">Correo electrónico</label>
                     <input type="email" id="email" name="email" required>
+
+                    <label for="subject">Asunto</label>
+                    <input type="text" id="subject" name="subject" required>
+
                     <label for="message">Mensaje</label>
                     <textarea id="message" name="message" required></textarea>
-                    <button type="submit">Enviar</button>
+                    
+                    <div class="button-container">
+                        <button type="submit">Enviar</button>
+                        <button type="button" class="register-button">Registrarse</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        `;
+    }
+
+    registrationTemplate() {
+        return `
+        <div class="contact-card">
+            <div class="contact-info">
+                <h2>Registro</h2>
+                <form>
+                    <label for="first-name">Nombre</label>
+                    <input type="text" id="first-name" name="first-name" required>
+                    
+                    <label for="last-name">Apellidos</label>
+                    <input type="text" id="last-name" name="last-name" required>
+
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" required>
+                    
+                    <div class="button-container">
+                        <button type="button" class="cancel-button">Cancelar</button>
+                        <button type="submit" class="accept-button">Aceptar</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -143,13 +200,14 @@ class ContactComponent extends HTMLElement {
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 border-radius: 10px;
                 overflow: hidden;
-                background-color: white;
+                background-color: #f8f9fa;
                 margin: 10px;
-                padding: 10px;
-                width: 280%;
-                height: 94%;
-                min-height: 200px; /* Altura mínima del formulario */
-                position: relative;
+                padding: 20px;
+                width: 290%;
+                max-width: 610px;
+                text-align: center;
+                transition: opacity 0.5s ease-in-out;
+                opacity: 1;
             }
 
             .contact-info {
@@ -159,8 +217,9 @@ class ContactComponent extends HTMLElement {
 
             .contact-info h2 {
                 margin-top: 0;
-                font-size: 1.5em;
-                text-align: center;
+                font-size: 1.8em;
+                color: #007bff;
+                margin-bottom: 20px;
             }
 
             form {
@@ -171,32 +230,77 @@ class ContactComponent extends HTMLElement {
             }
 
             label {
-                margin: 10px 0;
+                margin: 10px 0 5px;
                 font-size: 1.2em;
+                color: #343a40;
+                align-self: flex-start;
             }
 
             input, textarea {
-                margin: 10px 0;
+                margin: 5px 0 20px;
                 padding: 10px;
-                width: 90%;
-                max-width: 400px;
-                box-sizing: border-box; /* Para asegurarse de que el padding no aumente el tamaño total */
+                width: 100%;
+                max-width: 500px;
+                box-sizing: border-box;
+                border: 1px solid #ced4da;
+                border-radius: 5px;
+                font-size: 1em;
+                font-family: inherit;
             }
 
             textarea {
-                resize: vertical; /* Permite redimensionar solo verticalmente */
+                resize: vertical;
+                min-height: 485px;
+            }
+
+            .button-container {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
             }
 
             button {
-                margin-top: 20px;
                 padding: 10px 20px;
-                background-color: #304eb1;
-                color: white;
                 border: none;
                 cursor: pointer;
-                border-radius: 4px;
-                width: 90%;
-                max-width: 200px;
+                border-radius: 50px;
+                transition: background-color 0.3s;
+            }
+
+            button[type="submit"] {
+                background-color: #007bff;
+                color: white;
+            }
+
+            button[type="submit"]:hover {
+                background-color: #0056b3;
+            }
+
+            .register-button {
+                background-color: #6c757d;
+                color: white;
+            }
+
+            .register-button:hover {
+                background-color: #5a6268;
+            }
+
+            .cancel-button {
+                background-color: #dc3545;
+                color: white;
+            }
+
+            .cancel-button:hover {
+                background-color: #c82333;
+            }
+
+            .accept-button {
+                background-color: #28a745;
+                color: white;
+            }
+
+            .accept-button:hover {
+                background-color: #218838;
             }
         </style>
         `;
@@ -204,6 +308,8 @@ class ContactComponent extends HTMLElement {
 }
 
 customElements.define('contact-component', ContactComponent);
+
+
 
 
 
@@ -226,7 +332,7 @@ class HelpSection extends HTMLElement {
 
     template() {
         return `
-        <div class="help-card">
+        <div class="help-card container">
             <h2>Ayuda</h2>
             <p>¿Tiene dudas? Llámenos o agende una cita:</p>
             <ul>
@@ -241,18 +347,22 @@ class HelpSection extends HTMLElement {
     templateCss() {
         return `
         <style>
+            @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+            
             .help-card {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                justify-content: center;
                 font-family: Arial, sans-serif;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 border-radius: 10px;
                 overflow: hidden;
-                background-color: white;
-                margin: 10px;
+                background-color: #333; /* Fondo gris oscuro */
+                color: white; /* Texto blanco */
+                margin: 10px auto;
                 padding: 10px;
-                max-width: 400px; /* Establece el ancho máximo de la tarjeta */
+                max-width: 1100px; /* Ancho máximo de la tarjeta */
                 text-align: center;
             }
 
@@ -276,7 +386,7 @@ class HelpSection extends HTMLElement {
             }
 
             a {
-                color: #304eb1;
+                color: #4fc3f7; /* Color de los enlaces */
                 text-decoration: none;
             }
 
