@@ -1,7 +1,7 @@
-class Informacion extends HTMLElement {
+class WelcomeCarousel extends HTMLElement {
     constructor() {
         super();
-        this.attachShadow({ mode: 'open' });
+        this.shadowDOM = this.attachShadow({ mode: 'open' });
     }
 
     connectedCallback() {
@@ -12,32 +12,38 @@ class Informacion extends HTMLElement {
     render() {
         this.shadowRoot.innerHTML = `
             ${this.templateCss()}
-            ${this.templateHTML()}
+            ${this.template()}
         `;
     }
 
-    templateHTML() {
+    template() {
         return `
-        <div class="hero">
-            <div class="carousel-container">
-                <div class="carousel">
-                    <img src="img/imagen1.jpg" class="active" alt="Imagen 1">
-                    <img src="img/imagen2.png" alt="Imagen 2">
-                    <img src="img/imagen3.jpg" alt="Imagen 3">
-                    <div class="carousel-controls">
-                        <button class="carousel-control prev">&lt;</button>
-                        <button class="carousel-control next">&gt;</button>
-                    </div>
+        <div class="welcome-container">
+            <h1 class="welcome-text">Bienvenidos al Hospital</h1>
+            <p class="welcome-message">
+                Nos complace darles la bienvenida a nuestro hospital, donde nos dedicamos a brindar la mejor atención médica para mejorar tu salud y bienestar. Nuestro equipo de profesionales está aquí para ofrecerte un servicio de alta calidad en un entorno seguro y acogedor. Gracias por confiar en nosotros.
+            </p>
+            <div class="carousel">
+                <div class="carousel-item">
+                    <img src="imgPrincipal/imagen1.jpg" alt="Imagen 1">
                 </div>
-            </div>
-            <div class="welcome-text">
-                <h1>Bienvenidos</h1>
-                <p>
-                    Nos complace darles la bienvenida a nuestra página web, donde encontrarás toda la información sobre nuestros servicios y el compromiso que tenemos con tu bienestar y salud. Estamos aquí para ofrecerte la mejor atención y los recursos necesarios para mejorar tu calidad de vida.
-                </p>
-                <p>
-                    Explora nuestra página para conocer más sobre nosotros, nuestros servicios y cómo podemos ayudarte. No dudes en contactarnos para cualquier consulta o para programar una cita.
-                </p>
+                <div class="carousel-item">
+                    <img src="imgPrincipal/imagen2.png" alt="Imagen 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="imgPrincipal/imagen3.jpg" alt="Imagen 3">
+                </div>
+                <div class="carousel-item">
+                    <img src="imgPrincipal/imagen4.jpg" alt="Imagen 4">
+                </div>
+                    <div class="carousel-item">
+                    <img src="imgPrincipal/imagen5.jpg" alt="Imagen 3">
+                </div>
+                <div class="carousel-item">
+                    <img src="imgPrincipal/imagen6.jpg" alt="Imagen 4">
+                </div>
+                <button class="carousel-control prev">&lt;</button>
+                <button class="carousel-control next">&gt;</button>
             </div>
         </div>
         `;
@@ -46,99 +52,82 @@ class Informacion extends HTMLElement {
     templateCss() {
         return `
         <style>
-        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Open+Sans:wght@400;700&display=swap');
-        @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+            @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+            .welcome-container {
+                text-align: center;
+                font-family: 'Nunito', sans-serif;
+                margin: 20px;
+            }
 
-            .hero {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 2rem;
-                padding: 2rem;
-                background-color: #f9f9f9;
-                font-family: 'Open Sans', sans-serif;
+            .welcome-text {
+                font-size: 2rem;
+                margin-bottom: 10px;
+                animation: fadeIn 1s ease-in-out;
             }
-            .carousel-container {
-                flex: 1;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                max-width: 100%;
+
+            .welcome-message {
+                font-size: 1rem;
+                line-height: 1.6;
+                margin-bottom: 20px;
+                color: #555;
+                animation: fadeIn 1.5s ease-in-out;
             }
+
             .carousel {
+                display: flex;
+                overflow: hidden;
                 position: relative;
                 width: 100%;
-                max-width: 400px;
-                overflow: hidden;
+                max-width: 100%;
+                margin: 0 auto;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
             }
-            .carousel img {
+
+            .carousel-item {
+                min-width: 50%;
+                transition: transform 0.5s ease;
+                position: relative;
+            }
+
+            .carousel-item img {
                 width: 100%;
-                display: none;
-                border-radius: 8px;
-                transition: opacity 0.5s ease-in-out;
+                height: 400px;
+                object-fit: cover;
             }
-            .carousel img.active {
-                display: block;
-                opacity: 1;
-            }
-            .carousel-controls {
+
+            .carousel-control {
                 position: absolute;
                 top: 50%;
-                width: 100%;
-                display: flex;
-                justify-content: space-between;
                 transform: translateY(-50%);
-            }
-            .carousel-control {
                 background: rgba(0, 0, 0, 0.5);
                 color: white;
                 border: none;
                 padding: 0.5rem 1rem;
                 cursor: pointer;
                 border-radius: 4px;
+                transition: background 0.3s ease;
+                z-index: 1;
             }
-            .welcome-text {
-                flex: 2;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                padding: 1rem;
-                background-color: white;
-                border-radius: 8px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                max-width: 100%;
-                animation: fadeIn 1s ease-in-out;
-                opacity: 0;
-                animation-fill-mode: forwards;
-                text-align: center;
-                font-family: 'Nunito', sans-serif;
+
+            .carousel-control:hover {
+                background: rgba(0, 0, 0, 0.7);
             }
-            .welcome-text h1 {
-                font-size: 2rem;
-                margin-bottom: 1rem;
-                color: #333;
-                text-align: center;
+
+            .carousel-control.prev {
+                left: 10px;
             }
-            .welcome-text p {
-                font-size: 1.1rem;
-                line-height: 1.6;
-                color: #666;
-                margin-bottom: 1rem;
-                text-align: justify;
+
+            .carousel-control.next {
+                right: 10px;
             }
+
             @keyframes fadeIn {
                 0% {
                     opacity: 0;
-                    transform: translateY(20px);
                 }
                 100% {
                     opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            @media (max-width: 768px) {
-                .hero {
-                    flex-direction: column;
-                    align-items: center;
                 }
             }
         </style>
@@ -146,38 +135,37 @@ class Informacion extends HTMLElement {
     }
 
     initCarousel() {
-        const carouselElement = this.shadowRoot.querySelector('.carousel');
-        const images = carouselElement.querySelectorAll('img');
+        const items = this.shadowRoot.querySelectorAll('.carousel-item');
+        const prevButton = this.shadowRoot.querySelector('.carousel-control.prev');
+        const nextButton = this.shadowRoot.querySelector('.carousel-control.next');
         let currentIndex = 0;
 
-        const showImage = (index) => {
-            images.forEach((img, i) => {
-                img.classList.toggle('active', i === index);
-                img.style.opacity = i === index ? '1' : '0';
+        const updateCarousel = () => {
+            items.forEach((item, index) => {
+                if (index >= currentIndex && index < currentIndex + 2) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
             });
         };
 
-        const prevImage = () => {
-            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-            showImage(currentIndex);
+        const showNextImages = () => {
+            currentIndex = (currentIndex + 2) % items.length;
+            updateCarousel();
         };
 
-        const nextImage = () => {
-            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-            showImage(currentIndex);
+        const showPrevImages = () => {
+            currentIndex = (currentIndex - 2 + items.length) % items.length;
+            updateCarousel();
         };
 
-        const startAutoPlay = () => {
-            setInterval(() => {
-                nextImage();
-            }, 3000); // Cambia de imagen cada 3 segundos (3000 milisegundos)
-        };
+        nextButton.addEventListener('click', showNextImages);
+        prevButton.addEventListener('click', showPrevImages);
 
-        carouselElement.querySelector('.prev').addEventListener('click', prevImage);
-        carouselElement.querySelector('.next').addEventListener('click', nextImage);
+        setInterval(showNextImages, 3000);
 
-        showImage(currentIndex);
-        startAutoPlay();
+        updateCarousel();
     }
 
     disconnectedCallback() {
@@ -185,110 +173,262 @@ class Informacion extends HTMLElement {
     }
 }
 
-window.customElements.define('info-component', Informacion);
+window.customElements.define('welcome-carousel', WelcomeCarousel);
 
 
 
 
-
-class Informacion2 extends HTMLElement {
+// ---------------------------------------------------------------- //
+// ---------------------------------------------------------------- //
+// ---------------------------------------------------------------- //
+class acercaDe extends HTMLElement {
     constructor() {
         super();
-        this.attachShadow({ mode: 'open' });
+        this.shadowDOM = this.attachShadow({ mode: 'open' });
     }
+
     connectedCallback() {
         this.render();
     }
+
     render() {
-        this.shadowRoot.innerHTML = `
+        const template = document.createElement('template');
+        template.innerHTML = `
             ${this.templateCss()}
-            ${this.templateHTML()}
+            <div class="about-container">
+                <section class="about">
+                    <div class="img-container">
+                        <img src="imgPrincipal/AcercaDe1.jpg" alt="Acerca de">
+                    </div>
+                    <div class="text-container">
+                        <h2>Acerca de</h2>
+                        <p>El Hospital Vida Saludable es un centro de salud dedicado a ofrecer servicios médicos de alta calidad. Nuestro compromiso es brindar atención personalizada y humana a todos nuestros pacientes.</p>
+                    </div>
+                </section>
+                <section class="mission">
+                    <div class="img-container">
+                        <img src="imgPrincipal/AcercaDe2.jpg" alt="Misión">
+                    </div>
+                    <div class="text-container">
+                        <h2>Misión</h2>
+                        <p>Nuestra misión es mejorar la salud y el bienestar de nuestra comunidad mediante la provisión de servicios médicos accesibles, innovadores y de alta calidad.</p>
+                    </div>
+                </section>
+                <section class="vision">
+                    <div class="img-container">
+                        <img src="imgPrincipal/AcercaDe3.jpg" alt="Visión">
+                    </div>
+                    <div class="text-container">
+                        <h2>Visión</h2>
+                        <p>Ser el hospital líder en la región, reconocido por nuestra excelencia en atención médica, tecnología avanzada y un enfoque centrado en el paciente.</p>
+                    </div>
+                </section>
+            </div>
+                            <hr class="styled-line">
+
+        `;
+        this.shadowDOM.appendChild(template.content.cloneNode(true));
+    }
+
+    templateCss() {
+        return `
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+            .about-container {
+                max-width: 1200px;
+                margin: 40px auto;
+                padding: 0 20px;
+                font-family: 'Nunito', sans-serif;
+                display: flex;
+                flex-direction: column;
+                gap: 40px;
+                background-color: #F0F4F8; /* Fondo Principal */
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            section {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+            }
+
+            hr.styled-line {
+                border: none;
+                height: 1px;
+                background: linear-gradient(to right, rgba(0, 0, 0, 0), #D3D3D3, rgba(0, 0, 0, 0)); /* Degradado */
+                margin: 20px 0;
+            }
+
+            .img-container {
+                flex: 1;
+            }
+
+            .img-container img {
+                width: 100%;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .text-container {
+                flex: 2;
+                padding: 20px;
+                background-color: #FFFFFF; /* Fondo Secundario */
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .text-container h2 {
+                font-size: 1.75rem;
+                margin-bottom: 10px;
+                color: #333333; /* Texto Principal */
+                border-bottom: 2px solid #007BFF; /* Color de Acento Azul */
+                display: inline-block;
+                padding-bottom: 5px;
+            }
+
+            .text-container p {
+                font-size: 1rem;
+                line-height: 1.6;
+                color: #555555; /* Texto Secundario */
+                margin-bottom: 20px;
+            }
+
+            @media (max-width: 768px) {
+                section {
+                    flex-direction: column;
+                }
+
+                .text-container {
+                    padding: 10px;
+                }
+
+                .text-container h2 {
+                    font-size: 1.5rem;
+                }
+
+                .text-container p {
+                    font-size: 0.9rem;
+                }
+            }
+        </style>
         `;
     }
 
-    templateHTML() {
+    disconnectedCallback() {
+        this.remove();
+    }
+}
+
+window.customElements.define('acerca-section', acercaDe);
+
+
+// ---------------------------------------------------------------- //
+// ---------------------------------------------------------------- //
+// ---------------------------------------------------------------- //
+class Informacion1 extends HTMLElement {
+    constructor() {
+        super();
+        this.shadowDOM = this.attachShadow({ mode: 'open' });
+    }
+
+    connectedCallback() {
+        this.mapComponentAttributes();
+        this.render();
+    }
+
+    mapComponentAttributes() {
+        const attributeMapping = [
+            'img-src',
+            'img-alt',
+            'title',
+            'text'
+        ];
+        attributeMapping.forEach(key => {
+            if (!this.attributes[key]) {
+                this.attributes[key] = { value: '' };
+            }
+        });
+    }
+
+    render() {
+        this.shadowDOM.innerHTML = `
+            ${this.templateCss()}
+            ${this.template()}
+        `;
+    }
+
+    template() {
         return `
-        <div class="hero">
-            <div class="welcome-text">
-                <h1>Acerca de</h1>
-                <p>
-                    El Hospital Vida Saludable es una institución médica dedicada a ofrecer servicios de salud de alta calidad con un enfoque integral en el bienestar de nuestros pacientes. Situado en una ubicación accesible, nuestro hospital se ha establecido como un referente en la comunidad por su compromiso con la excelencia médica y el cuidado personalizado.
-                </p>
-                <div class="mission-vision">
-                    <div class="mission">
-                        <h4>Misión</h4>
-                        <p>
-                            Nuestra misión es proporcionar atención médica de calidad que mejore la salud y el bienestar de nuestros pacientes a través de servicios innovadores y compasivos. Nos esforzamos por ser un centro de salud líder, reconocido por nuestra dedicación al cuidado del paciente y la excelencia en todos los aspectos de la medicina.
-                        </p>
-                    </div>
-                    <div class="vision">
-                        <h4>Visión</h4>
-                        <p>
-                            Nuestra visión es ser el hospital de elección en nuestra comunidad y más allá, conocido por nuestro enfoque centrado en el paciente, el uso de tecnología avanzada y un equipo de profesionales comprometidos con la mejora continua y el desarrollo profesional.
-                        </p>
-                    </div>
-                </div>
+        <div class="card">
+            <img src="${this.attributes['img-src'].value}" alt="${this.attributes['img-alt'].value}" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">${this.attributes.title.value}</h5>
+                <p class="card-text">${this.attributes.text.value}</p>
             </div>
         </div>
         `;
     }
+
     templateCss() {
         return `
         <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Lora:wght@400;700&display=swap');
-        @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
-            .hero {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 2rem;
-                padding: 2rem;
-                background-color: white;
-                font-family: 'Lora', serif;
+            @keyframes slideIn {
+                0% {
+                    opacity: 0;
+                    transform: translateX(-100%);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
             }
-            .welcome-text {
-                flex: 2;
+
+            .card {
+                margin: 10px;
+                flex: 1 1 auto;
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
-                line-height: 1.5;
-                max-width: 100%;
-                font-family: 'Poppins', sans-serif;
-                text-align: center;
-            }
-            .mission-vision {
-                display: flex;
-                gap: 2rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .mission, .vision {
-                flex: 1;
-                background-color: #f9f9f9;
-                padding: 1.5rem;
-                border-radius: 8px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                max-width: 45%;
-                text-align: left;
+                border-radius: 10px;
+                overflow: hidden;
+                background-color: white;
+                max-width: 400px;
+                animation: slideIn 1s ease-in-out; /* Agrega la animación de deslizamiento */
+                transition: transform 0.3s ease-in-out; /* Agrega la transición para el hover */
             }
-            @media (max-width: 768px) {
-                .hero {
-                    flex-direction: column;
-                    align-items: center;
-                }
-                .mission-vision {
-                    flex-direction: column;
-                    gap: 1rem;
-                }
-                .mission, .vision {
-                    max-width: 100%;
-                    text-align: center;
-                }
+
+            .card:hover {
+                transform: scale(1.05); /* Hace que la card se agrande al hacer hover */
             }
-            </style>
+
+            .card-img-top {
+                height: 200px;
+                object-fit: cover;
+            }
+
+            .card-body {
+                flex: 1 0 auto;
+                padding: 10px;
+            }
+
+            .card-title {
+                font-size: 1.25rem;
+                margin-bottom: 10px;
+            }
+
+            .card-text {
+                font-size: 1rem;
+                color: #555;
+            }
+        </style>
         `;
     }
+
     disconnectedCallback() {
         this.remove();
     }
 }
-customElements.define('info-dos', Informacion2);
+
+window.customElements.define('card-component', Informacion1);

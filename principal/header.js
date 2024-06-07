@@ -142,7 +142,7 @@ class MenuDesplegable extends HTMLElement {
             @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
             #menu {
                 width: 150px;
-                background-color: #007bff; 
+                background-color: #ADD8E6; 
                 border-radius: 0px 60px 60px 0px;
                 padding: 20px 20px 20px 8px;
                 position: fixed;
@@ -158,7 +158,7 @@ class MenuDesplegable extends HTMLElement {
             }
 
             #menu a {
-                color: white;
+                color: black;
                 text-decoration: none;
             }
 
@@ -170,7 +170,7 @@ class MenuDesplegable extends HTMLElement {
 
             .menu-item i {
                 margin-right: 10px;
-                color: white;
+                color: black;
             }
 
             .menu-des {
