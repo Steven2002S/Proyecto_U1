@@ -6,6 +6,7 @@ class BarraNavegacion extends HTMLElement {
 
     connectedCallback() {
         this.render();
+        this.addEventListeners();
     }
 
     render() {
@@ -13,6 +14,16 @@ class BarraNavegacion extends HTMLElement {
             ${this.templateCss()}
             ${this.templateHTML()}
         `;
+    }
+
+    addEventListeners() {
+        // Este método es para manejar el comportamiento del menú desplegable
+        const toggler = this.shadowDOM.querySelector('.navbar-toggler');
+        const collapse = this.shadowDOM.querySelector('#navbarCollapse');
+        
+        toggler.addEventListener('click', () => {
+            collapse.classList.toggle('show');
+        });
     }
 
     templateHTML() {
@@ -88,12 +99,24 @@ class BarraNavegacion extends HTMLElement {
                     font-size: 1.5rem;
                 }
             }
+
+            .collapse.show {
+                display: block;
+            }
         </style>
         `;
     }
 
     disconnectedCallback() {
-        this.remove();
+        this.removeEventListeners();
+    }
+
+    removeEventListeners() {
+        const toggler = this.shadowDOM.querySelector('.navbar-toggler');
+        const collapse = this.shadowDOM.querySelector('#navbarCollapse');
+        toggler.removeEventListener('click', () => {
+            collapse.classList.toggle('show');
+        });
     }
 }
 
