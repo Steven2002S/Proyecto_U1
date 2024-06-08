@@ -62,14 +62,15 @@ class DoctorContact extends HTMLElement {
                 background-color: white;
                 margin: 10px;
                 padding: 10px;
-                max-width: 400px; /* Establece el ancho máximo de la tarjeta */
+                max-width: 400px;
+                flex: 1 1 100%;
             }
 
             img {
                 border-radius: 50%;
                 margin-right: 10px;
-                width: 80px; /* Tamaño reducido para ocupar menos espacio */
-                height: 80px; /* Tamaño reducido para ocupar menos espacio */
+                width: 80px;
+                height: 80px;
             }
 
             .contact-info {
@@ -78,12 +79,23 @@ class DoctorContact extends HTMLElement {
 
             .contact-info h2 {
                 margin-top: 0;
-                font-size: 1.2em; /* Tamaño de fuente ligeramente más grande */
+                font-size: 1.2em;
             }
 
             .contact-info p {
                 margin: 3px 0;
-                font-size: 0.9em; /* Tamaño de fuente ligeramente más pequeño */
+                font-size: 0.9em;
+            }
+
+            @media (max-width: 768px) {
+                .contact-card {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+
+                img {
+                    margin: 0 auto 10px;
+                }
             }
         </style>
         `;
@@ -95,7 +107,6 @@ class DoctorContact extends HTMLElement {
 }
 
 window.customElements.define('doctor-contact', DoctorContact);
-
 
 class ContactComponent extends HTMLElement {
     constructor() {
@@ -208,6 +219,7 @@ class ContactComponent extends HTMLElement {
                 text-align: center;
                 transition: opacity 0.5s ease-in-out;
                 opacity: 1;
+                flex: 1 1 100%;
             }
 
             .contact-info {
@@ -250,7 +262,7 @@ class ContactComponent extends HTMLElement {
 
             textarea {
                 resize: vertical;
-                min-height: 485px;
+                min-height: 200px;
             }
 
             .button-container {
@@ -302,16 +314,19 @@ class ContactComponent extends HTMLElement {
             .accept-button:hover {
                 background-color: #218838;
             }
+
+            @media (max-width: 768px) {
+                .contact-card {
+                    width: 100%;
+                    max-width: none;
+                }
+            }
         </style>
         `;
     }
 }
 
 customElements.define('contact-component', ContactComponent);
-
-
-
-
 
 class HelpSection extends HTMLElement {
     constructor() {
@@ -358,11 +373,11 @@ class HelpSection extends HTMLElement {
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 border-radius: 10px;
                 overflow: hidden;
-                background-color: #333; /* Fondo gris oscuro */
-                color: white; /* Texto blanco */
+                background-color: #333;
+                color: white;
                 margin: 10px auto;
                 padding: 10px;
-                max-width: 1100px; /* Ancho máximo de la tarjeta */
+                max-width: 1100px;
                 text-align: center;
             }
 
@@ -386,12 +401,26 @@ class HelpSection extends HTMLElement {
             }
 
             a {
-                color: #4fc3f7; /* Color de los enlaces */
+                color: #4fc3f7;
                 text-decoration: none;
             }
 
             a:hover {
                 text-decoration: underline;
+            }
+
+            @media (max-width: 768px) {
+                .help-card {
+                    width: 100%;
+                }
+
+                h2 {
+                    font-size: 1.2em;
+                }
+
+                p {
+                    font-size: 0.9em;
+                }
             }
         </style>
         `;
@@ -403,3 +432,72 @@ class HelpSection extends HTMLElement {
 }
 
 window.customElements.define('help-section', HelpSection);
+
+class MainContainer extends HTMLElement {
+    constructor() {
+        super();
+        this.shadowDOM = this.attachShadow({ mode: 'open' });
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    render() {
+        this.shadowDOM.innerHTML = `
+            ${this.templateCss()}
+            ${this.template()}
+        `;
+    }
+
+    template() {
+        return `
+        <div class="main-container">
+            <doctor-contact img-src="doctor.jpg" img-width="80px" img-height="80px" name="Dr. Smith" email="dr.smith@example.com" phone="123-456-7890" address="123 Main St" role="Cardiologist"></doctor-contact>
+            <doctor-contact img-src="doctor.jpg" img-width="80px" img-height="80px" name="Dr. Doe" email="dr.doe@example.com" phone="987-654-3210" address="456 Elm St" role="Dermatologist"></doctor-contact>
+            <contact-component></contact-component>
+        </div>
+        `;
+    }
+
+    templateCss() {
+        return `
+        <style>
+            .main-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+            }
+
+            doctor-contact {
+                flex: 1 1 45%;
+                max-width: 400px;
+            }
+
+            contact-component {
+                flex: 1 1 100%;
+                margin-top: 20px;
+            }
+
+            @media (max-width: 768px) {
+                .main-container {
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                doctor-contact, contact-component {
+                    width: 100%;
+                    max-width: 400px;
+                    margin: 10px 0;
+                }
+            }
+        </style>
+        `;
+    }
+
+    disconnectedCallback() {
+        this.remove();
+    }
+}
+
+window.customElements.define('main-container', MainContainer);
