@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
     <script src="principal/footer.js"></script>
     <script src="principal/servicios.js"></script>
 </head>
+
 <body>
     <!-- Web component -->
     <barra-navegacion></barra-navegacion>
@@ -22,21 +24,55 @@
         <div class="row">
             <!-- Servicio Hospital -->
             <div class="col-md-4">
-                <servicio-hospital></servicio-hospital>
+                <servicio-hospital img-src="img/imagen2.jpg" img-alt="Servicio Hospitalario"
+                    title="Servicio Hospitalario" collapse-id="servicioHospital"
+                    description="El Servicio Hospitalario ofrece atención médica especializada las 24 horas del día, los 7 días de la semana. Nuestro equipo de profesionales altamente capacitados está dedicado a brindar atención compasiva y de alta calidad a nuestros pacientes. Desde servicios de emergencia hasta intervenciones quirúrgicas y cuidados intensivos, nuestro hospital se compromete a proporcionar el mejor cuidado posible para su salud y bienestar."
+                    link="compra.html">
+                </servicio-hospital>
             </div>
             <!-- Servicio de Laboratorio -->
             <div class="col-md-4">
-                <servicio-laboratorio></servicio-laboratorio>
+                <servicio-laboratorio img-src="img/imagen3.jpg" img-alt="Servicio de Laboratorio"
+                    title="Servicio de Laboratorio" collapse-id="servicioLaboratorio"
+                    description="El Servicio de Laboratorio ofrece una amplia gama de pruebas diagnósticas y análisis clínicos para ayudar a identificar enfermedades y monitorear la salud de nuestros pacientes. Nuestro equipo de técnicos y especialistas trabaja con tecnología de vanguardia para garantizar resultados precisos y oportunos. Ya sea que necesite análisis de sangre, pruebas de imagenología o evaluaciones genéticas, nuestro laboratorio está aquí para brindarle resultados confiables y de alta calidad."
+                    link="compra.html">
+                </servicio-laboratorio>
             </div>
-
             <!-- Servicio de Consulta -->
             <div class="col-md-4">
-                <servicio-consulta></servicio-consulta>
+                <servicio-consulta img-src="img/imagen4.jpg" img-alt="Servicio de Consulta" title="Servicio de Consulta"
+                    collapse-id="servicioConsulta"
+                    description="Nuestro Servicio de Consulta ofrece atención médica personalizada y preventiva para pacientes de todas las edades. Desde exámenes físicos de rutina hasta el manejo de enfermedades crónicas, nuestros médicos están comprometidos a proporcionar atención integral y compasiva. Además, nuestro equipo ofrece asesoramiento sobre nutrición, programas de ejercicios y estrategias de estilo de vida saludable para ayudarlo a alcanzar y mantener su bienestar óptimo."
+                    link="compra.html">
+                </servicio-consulta>
             </div>
+            <div class="col-md-4">
+                <servicio-cardiologo img-src="img/imagen5.avif" img-alt="Servicio de Cardiología"
+                    title="Servicio de Cardiología" collapse-id="servicioCardiologia"
+                    description="Nuestro Servicio de Cardiología se dedica al diagnóstico y tratamiento de enfermedades cardíacas. Desde pruebas de diagnóstico avanzadas hasta intervenciones quirúrgicas cardíacas, nuestro equipo de cardiólogos y cirujanos cardíacos está comprometido a proporcionar atención de alta calidad para la salud del corazón."
+                    link="compra.html">
+                </servicio-cardiologo>
+            </div>
+            <div class="col-md-4">
+                <servicio-traumatologia img-src="img/imagen6.avif" img-alt="Servicio de Traumatología"
+                    title="Servicio de Traumatología" collapse-id="servicioTraumatologia"
+                    description="Nuestro Servicio de Traumatología se especializa en el diagnóstico y tratamiento de lesiones musculoesqueléticas. Desde fracturas óseas hasta lesiones deportivas, nuestro equipo de traumatólogos y cirujanos ortopédicos ofrece una atención integral para ayudarlo a recuperarse y volver a su vida activa."
+                    link="compra.html">
+                </servicio-traumatologia>
+            </div>
+            <div class="col-md-4">
+                <servicio-dermatologia img-src="img/imagen7.webp" img-alt="Servicio de Dermatología"
+                    title="Servicio de Dermatología" collapse-id="servicioDermatologia"
+                    description="Nuestro Servicio de Dermatología en el Hospital ofrece diagnóstico y tratamiento de enfermedades de la piel, cabello y uñas. Desde acné hasta cáncer de piel, nuestros dermatólogos altamente capacitados proporcionan una atención integral y personalizada para mejorar la salud y la apariencia de su piel."
+                    link="compra.html">
+                </servicio-dermatologia>
+            </div>
+
         </div>
     </div>
-
+    <br>
     <footer-component></footer-component>
 
 </body>
+
 </html>

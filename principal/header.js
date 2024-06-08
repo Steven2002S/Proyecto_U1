@@ -131,6 +131,7 @@ class MenuDesplegable extends HTMLElement {
 
     connectedCallback() {
         this.render();
+        this.setupListeners();
     }
 
     render() {
@@ -164,20 +165,22 @@ class MenuDesplegable extends HTMLElement {
         <style>
             @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
             #menu {
-                width: 150px;
+                width: 220px;
                 background-color: #ADD8E6; 
-                border-radius: 0px 60px 60px 0px;
+                border-radius: 10px;
                 padding: 20px 20px 20px 8px;
                 position: fixed;
                 z-index: 100;
-                left: -165px; /* Más oculto */
+                left: -220px; /* Menú más escondido */
                 top: 50%;
                 transform: translateY(-50%);
-                transition: left 0.3s ease;
+                transition: left 0.4s ease, background-color 0.4s ease; /* Agregamos la transición para el color de fondo */
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
             }
 
             #menu:hover {
-                left: 0;
+                left: 0; /* Mostrar completamente al hacer hover */
+                background-color: #8ac6d1; /* Cambiar el color de fondo al hacer hover */
             }
 
             #menu a {
@@ -189,6 +192,7 @@ class MenuDesplegable extends HTMLElement {
                 margin: 10px 0;
                 display: flex;
                 align-items: center;
+                transition: transform 0.3s ease;
             }
 
             .menu-item i {
@@ -197,8 +201,9 @@ class MenuDesplegable extends HTMLElement {
             }
 
             .menu-des {
-                line-height: 70px;
+                line-height: 40px;
                 display: inline-block;
+                transition: transform 0.3s ease;
             }
 
             .menu-item a:hover {
@@ -206,21 +211,33 @@ class MenuDesplegable extends HTMLElement {
                 text-decoration: none;
                 transition: text-decoration 0.3s ease;
             }
+                
+            /* Animación */
+            @keyframes wings-flap {
+                0% {
+                    transform: rotate(0deg);
+                }
+                50% {
+                    transform: rotate(10deg);
+                }
+                100% {
+                    transform: rotate(0deg);
+                }
+            }
 
-            @media (max-width: 767px) {
-                #menu {
-                    width: 150px;
-                    padding: 15px 15px 15px 5px;
-                    left: -160px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                }
-                .menu-des {
-                    line-height: 50px;
-                }
+            .menu-item:hover {
+                animation: wings-flap 0.5s ease infinite;
             }
         </style>
         `;
+    }
+
+    setupListeners() {
+        document.addEventListener('click', (event) => {
+            if (!this.contains(event.target)) {
+                this.shadowRoot.getElementById('menu').style.left = '-220px'; // Ocultar el menú más al hacer clic fuera de él
+            }
+        });
     }
 
     disconnectedCallback() {
