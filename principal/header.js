@@ -54,14 +54,17 @@ class BarraNavegacion extends HTMLElement {
         return `
         <style>
             @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
-            
+            @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
             .nav-bar {
-                background-color: #f8f9fa;
+            background-color: #f8f9fa;
+            font-family: 'Nunito', sans-serif;
             }
 
             .navbar {
                 padding: 1rem 0;
                 min-height: 80px;
+                
             }
 
             .navbar-brand h1 {
@@ -163,9 +166,11 @@ class MenuDesplegable extends HTMLElement {
     templateCss() {
         return `
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
             @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
             #menu {
                 width: 220px;
+                font-family: 'Nunito', sans-serif;
                 background-color: #ADD8E6; 
                 border-radius: 10px;
                 padding: 20px 20px 20px 8px;
