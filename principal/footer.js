@@ -20,9 +20,9 @@ class FooterComponent extends HTMLElement {
             <div class="row justify-content-around">
                 <div class="col-lg-5 col-md-5 mb-1">
                     <h5 class="text-light mb-3">Contáctanos</h5> <!-- Espacio adicional -->
-                    <p><i class="fa fa-map-marker-alt mr-2"></i>123 Calle, Ciudad, País</p>
-                    <p><i class="fa fa-phone-alt mr-2"></i>+123 456 7890</p>
-                    <p><i class="fa fa-envelope mr-2"></i>info@example.com</p>
+                    <p><i class="fa fa-map-marker-alt mr-2"></i>Av. quito y galapagos</p>
+                    <p><i class="fa fa-phone-alt mr-2"></i>0962759035 - 2722240</p>
+                    <p><i class="fa fa-envelope mr-2"></i>vidasaludable@hotmail.com</p>
                     <div class="d-flex justify-content-start mt-1">
                         <a data-mdb-ripple-init class="btn btn-outline-light btn-social mr-2" href="#"><img src="imgPrincipal/twitter.png" alt="Twitter" class="social-icon"></a>
                         <a data-mdb-ripple-init class="btn btn-outline-light btn-social mr-2" href="#"><img src="imgPrincipal/facebook.png" alt="Facebook" class="social-icon"></a>
