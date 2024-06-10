@@ -3,10 +3,24 @@ class EncabezadoServicios extends HTMLElement {
     constructor() {
         super();
         this.shadowDOM = this.attachShadow({ mode: 'open' });
+        this.currentImageIndex = 0;
     }
 
     connectedCallback() {
+        this.imgSrcs = this.getAttribute('img-srcs').split(',');
+        this.interval = parseInt(this.getAttribute('interval'), 10) || 3000;
         this.render();
+        this.startCarousel();
+    }
+
+    startCarousel() {
+        this.imageElements = this.shadowDOM.querySelectorAll('.carousel-image');
+        this.imageElements[this.currentImageIndex].classList.add('active');
+        this.intervalId = setInterval(() => {
+            this.imageElements[this.currentImageIndex].classList.remove('active');
+            this.currentImageIndex = (this.currentImageIndex + 1) % this.imageElements.length;
+            this.imageElements[this.currentImageIndex].classList.add('active');
+        }, this.interval);
     }
 
     render() {
@@ -17,10 +31,12 @@ class EncabezadoServicios extends HTMLElement {
     }
 
     templateHTML() {
+        const images = this.imgSrcs.map(src => `<img src="${src}" class="carousel-image" alt="Carrusel de Servicios">`).join('');
         return `
         <div class="page-header">
+            ${images}
             <div class="container">
-                <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px; margin-top: 50px;"> <!-- Ajuste del margen superior aquí -->
+                <div class="d-flex flex-column align-items-center justify-content-center header-text">
                     <p class="m-0 text-uppercase font-bold text-white" style="font-size: 36px;">SERVICIOS</p>
                 </div>
             </div>
@@ -31,19 +47,35 @@ class EncabezadoServicios extends HTMLElement {
     templateCss() {
         return `
         <style>
-                @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
-                body {
+            @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+            body {
                 font-family: 'Nunito', sans-serif;
-                }
-                .page-header {
-                background: url('img/imagen1.jpg') center center no-repeat;
-                background-size: cover;
+            }
+            .page-header {
                 position: relative;
-                min-height: 400px;
+                width: 100%;
+                height: 50vh; /* Use full viewport height */
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 text-align: center;
+                overflow: hidden;
+            }
+
+            .page-header img {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 100%;
+                height: auto;
+                transform: translate(-50%, -50%);
+                z-index: -1;
+                opacity: 0;
+                transition: opacity 1s ease-in-out;
+            }
+
+            .page-header img.active {
+                opacity: 1;
             }
 
             .page-header::before {
@@ -53,7 +85,7 @@ class EncabezadoServicios extends HTMLElement {
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: rgba(0, 0, 0, 0.5); /* Oscurecer la imagen */
+                background: rgba(0, 0, 0, 0.5); /* Overlay to darken image */
             }
 
             .page-header .container {
@@ -61,18 +93,13 @@ class EncabezadoServicios extends HTMLElement {
                 z-index: 1;
             }
 
-            .page-header .d-inline-flex {
+            .header-text {
                 z-index: 2;
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             }
 
-            .page-header .d-inline-flex a {
+            .header-text p {
                 color: white;
-                text-decoration: none;
-            }
-
-            .page-header .d-inline-flex i {
-                padding: 0 10px;
             }
 
             .font-bold {
@@ -87,11 +114,13 @@ class EncabezadoServicios extends HTMLElement {
     }
 
     disconnectedCallback() {
-        this.remove();
+        clearInterval(this.intervalId);
     }
 }
 
 window.customElements.define('encabezado-servicios', EncabezadoServicios);
+
+
 
 //CARDS
 class ServicioHospital extends HTMLElement {
