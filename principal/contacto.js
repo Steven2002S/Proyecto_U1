@@ -8,7 +8,7 @@ class DoctorContact extends HTMLElement {
         this.mapComponentAttributes();
         this.render();
     }
-    
+
     mapComponentAttributes() {
         const attributeMapping = [
             'img-src',
@@ -18,7 +18,7 @@ class DoctorContact extends HTMLElement {
             'email',
             'phone',
             'address',
-            'role' // Nuevo atributo
+            'role'
         ];
         attributeMapping.forEach(key => {
             if (!this.attributes[key]) {
@@ -40,7 +40,7 @@ class DoctorContact extends HTMLElement {
             <img id="doctor-image" src="${this.attributes['img-src'].value}" alt="Doctor Image" style="width: ${this.attributes['img-width'].value}; height: ${this.attributes['img-height'].value};">
             <div class="contact-info">
                 <h2 id="doctor-name">${this.attributes.name.value}</h2>
-                <p><strong>Rol:</strong> <span id="doctor-role">${this.attributes.role.value}</span></p> <!-- Nuevo campo de rol -->
+                <p><strong>Rol:</strong> <span id="doctor-role">${this.attributes.role.value}</span></p>
                 <p><strong>Email:</strong> <span id="doctor-email">${this.attributes.email.value}</span></p>
                 <p><strong>Teléfono:</strong> <span id="doctor-phone">${this.attributes.phone.value}</span></p>
                 <p><strong>Dirección:</strong> <span id="doctor-address">${this.attributes.address.value}</span></p>
@@ -112,7 +112,7 @@ class ContactComponent extends HTMLElement {
     constructor() {
         super();
         this.shadowDOM = this.attachShadow({ mode: 'open' });
-        this.isRegistering = false; // Estado del formulario
+        this.isRegistering = false; 
     }
 
     connectedCallback() {
@@ -130,7 +130,6 @@ class ContactComponent extends HTMLElement {
             ${this.template()}
         `;
 
-        // Añadir eventos a los botones
         const registerButton = this.shadowDOM.querySelector('.register-button');
         const cancelButton = this.shadowDOM.querySelector('.cancel-button');
         
@@ -214,8 +213,7 @@ class ContactComponent extends HTMLElement {
                 background-color: #f8f9fa;
                 margin: 10px;
                 padding: 20px;
-                width: 290%;
-                max-width: 610px;
+                max-width: 800px;
                 text-align: center;
                 transition: opacity 0.5s ease-in-out;
                 opacity: 1;
@@ -433,71 +431,3 @@ class HelpSection extends HTMLElement {
 
 window.customElements.define('help-section', HelpSection);
 
-class MainContainer extends HTMLElement {
-    constructor() {
-        super();
-        this.shadowDOM = this.attachShadow({ mode: 'open' });
-    }
-
-    connectedCallback() {
-        this.render();
-    }
-
-    render() {
-        this.shadowDOM.innerHTML = `
-            ${this.templateCss()}
-            ${this.template()}
-        `;
-    }
-
-    template() {
-        return `
-        <div class="main-container">
-            <doctor-contact img-src="doctor.jpg" img-width="80px" img-height="80px" name="Dr. Smith" email="dr.smith@example.com" phone="123-456-7890" address="123 Main St" role="Cardiologist"></doctor-contact>
-            <doctor-contact img-src="doctor.jpg" img-width="80px" img-height="80px" name="Dr. Doe" email="dr.doe@example.com" phone="987-654-3210" address="456 Elm St" role="Dermatologist"></doctor-contact>
-            <contact-component></contact-component>
-        </div>
-        `;
-    }
-
-    templateCss() {
-        return `
-        <style>
-            .main-container {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-around;
-            }
-
-            doctor-contact {
-                flex: 1 1 45%;
-                max-width: 400px;
-            }
-
-            contact-component {
-                flex: 1 1 100%;
-                margin-top: 20px;
-            }
-
-            @media (max-width: 768px) {
-                .main-container {
-                    flex-direction: column;
-                    align-items: center;
-                }
-
-                doctor-contact, contact-component {
-                    width: 100%;
-                    max-width: 400px;
-                    margin: 10px 0;
-                }
-            }
-        </style>
-        `;
-    }
-
-    disconnectedCallback() {
-        this.remove();
-    }
-}
-
-window.customElements.define('main-container', MainContainer);
