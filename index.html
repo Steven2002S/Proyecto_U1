@@ -7,18 +7,15 @@
     <title>Proyecto Unidad 1</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.netbootstrapcdn/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 
-
-
+    <!------------------------------------------------------------------------------------------------------->
     <script src="principal/header.js"></script>
     <script src="principal/footer.js"></script>
     <script src="principal/informacion.js"></script>
     <script type="module" src="principal/acercaDe.js"></script>
-   
+    <!------------------------------------------------------------------------------------------------------->
 
 </head>
 
@@ -29,44 +26,138 @@
     </header>
 
     <main>
-        <welcome-carousel></welcome-carousel>
+        <!------------------------------------------------------------------------------------------------------->
+        <!--------------------------------TEMPLATE - BIENVENIDO-------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------->
+        <template id="bienvenido-carousel-template">
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+                .bienvenido-container {
+                    text-align: center;
+                    font-family: 'Nunito', sans-serif;
+                    margin: 20px;
+                }
+
+                .bienvenido-text {
+                    font-size: 2rem;
+                    margin-bottom: 10px;
+                    animation: fadeIn 1s ease-in-out;
+                }
+
+                .bienvenido-message {
+                    font-size: 1rem;
+                    line-height: 1.6;
+                    margin-bottom: 20px;
+                    color: #555;
+                    animation: fadeIn 1.5s ease-in-out;
+                }
+
+                .carousel {
+                    display: flex;
+                    overflow: hidden;
+                    position: relative;
+                    width: 100%;
+                    max-width: 100%;
+                    margin: 0 auto;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    border-radius: 10px;
+                }
+
+                .carousel-item {
+                    min-width: 50%;
+                    transition: transform 0.5s ease;
+                    position: relative;
+                    display: none;
+                }
+
+                .carousel-item img {
+                    width: 100%;
+                    height: 400px;
+                    object-fit: cover;
+                }
+
+                .carousel-control {
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background: rgba(0, 0, 0, 0.5);
+                    color: white;
+                    border: none;
+                    padding: 0.5rem 1rem;
+                    cursor: pointer;
+                    border-radius: 4px;
+                    transition: background 0.3s ease;
+                    z-index: 1;
+                }
+
+                .carousel-control:hover {
+                    background: rgba(0, 0, 0, 0.7);
+                }
+
+                .carousel-control.prev {
+                    left: 10px;
+                }
+
+                .carousel-control.next {
+                    right: 10px;
+                }
+
+                @keyframes fadeIn {
+                    0% {
+                        opacity: 0;
+                    }
+
+                    100% {
+                        opacity: 1;
+                    }
+                }
+            </style>
+            <div class="bienvenido-container">
+                <h1 class="bienvenido-text"></h1>
+                <p class="bienvenido-message"></p>
+                <div class="carousel"></div>
+                <button class="carousel-control prev">&lt;</button>
+                <button class="carousel-control next">&gt;</button>
+            </div>
+        </template>
+
+        <bienvenido-carousel title="Bienvenidos al Hospital"
+            message="Nos complace darles la bienvenida a nuestro hospital, donde nos dedicamos a brindar la mejor atención médica para mejorar tu salud y bienestar. Nuestro equipo de profesionales está aquí para ofrecerte un servicio de alta calidad en un entorno seguro y acogedor. Gracias por confiar en nosotros."
+            images="imgPrincipal/imagen1.jpg,imgPrincipal/imagen2.png,imgPrincipal/imagen3.jpg,imgPrincipal/imagen4.jpg,imgPrincipal/imagen5.jpg,imgPrincipal/imagen6.jpg">
+        </bienvenido-carousel>
+
+        <!------------------------------------------------------------------------------------------------------->
+        <!--------------------------------ES Modules - Parametrizado--------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------->
         <acerca-section></acerca-section>
+
         <div class="container mt-5">
             <div class="row">
                 <div class="col-md-4">
-                    <card-component
-                        img-src="imgPrincipal/servicios.jpg"
-                        img-alt="Servicios Médicos"
+                    <card-component img-src="imgPrincipal/servicios.jpg" img-alt="Servicios Médicos"
                         title="Servicios Médicos"
                         text="Ofrecemos una amplia gama de servicios médicos de alta calidad, incluyendo consultas especializadas, cirugía, cuidados intensivos y más.">
                     </card-component>
                 </div>
                 <div class="col-md-4">
-                    <card-component
-                        img-src="imgPrincipal/equipo.jpg"
-                        img-alt="Equipo Médico"
-                        title="Equipo Médico"
+                    <card-component img-src="imgPrincipal/equipo.jpg" img-alt="Equipo Médico" title="Equipo Médico"
                         text="Nuestro equipo de profesionales está compuesto por médicos, enfermeras y personal altamente calificado y dedicado a tu bienestar.">
                     </card-component>
                 </div>
                 <div class="col-md-4">
-                    <card-component
-                        img-src="imgPrincipal/contacto.jpg"
-                        img-alt="Contacto"
-                        title="Contacto"
+                    <card-component img-src="imgPrincipal/contacto.jpg" img-alt="Contacto" title="Contacto"
                         text="Estamos aquí para ayudarte. Contáctanos para programar una cita o para cualquier consulta. Nuestro equipo de atención al cliente está disponible las 24 horas.">
                     </card-component>
                 </div>
             </div>
         </div>
-
-        
     </main>
 
-
-
+    <!------------------------------------------------------------------------------------------------------->
+    <!---------------------------------------CUSTOM ELEMENTS------------------------------------------------->
+    <!------------------------------------------------------------------------------------------------------->
     <footer-component></footer-component>
-
 
 
 </body>

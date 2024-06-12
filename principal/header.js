@@ -1,3 +1,6 @@
+//--------------------------------------------------------------------------------------------------------//
+//-------------------------------SHADOW DOM ---- BARRA NAVEGACION-----------------------------------------//
+//--------------------------------------------------------------------------------------------------------//
 class BarraNavegacion extends HTMLElement {
     constructor() {
         super();
@@ -20,7 +23,7 @@ class BarraNavegacion extends HTMLElement {
         // Este método es para manejar el comportamiento del menú desplegable
         const toggler = this.shadowDOM.querySelector('.navbar-toggler');
         const collapse = this.shadowDOM.querySelector('#navbarCollapse');
-        
+
         toggler.addEventListener('click', () => {
             collapse.classList.toggle('show');
         });
@@ -125,7 +128,10 @@ class BarraNavegacion extends HTMLElement {
 
 window.customElements.define('barra-navegacion', BarraNavegacion);
 
-// menu-desplegable.js
+//--------------------------------------------------------------------------------------------------------//
+//-------------------------------SHADOW DOM ---- MENU DESPLEGABLE-----------------------------------------//
+//--------------------------------------------------------------------------------------------------------//
+
 class MenuDesplegable extends HTMLElement {
     constructor() {
         super();
@@ -181,64 +187,64 @@ class MenuDesplegable extends HTMLElement {
                 box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
             }
 
-    #menu:hover {
-        left: 0; /* Mostrar completamente al hacer hover */
-        background-color: #8ac6d1; /* Cambiar el color de fondo al hacer hover */
-    }
+            #menu:hover {
+                left: 0; /* Mostrar completamente al hacer hover */
+                background-color: #8ac6d1; /* Cambiar el color de fondo al hacer hover */
+            }
 
-    #menu a {
-        color: black;
-        text-decoration: none;
-    }
+            #menu a {
+                color: black;
+                text-decoration: none;
+            }
 
-    .menu-item {
-        margin: 10px 0;
-        display: flex;
-        align-items: center;
-        transition: transform 0.3s ease;
-    }
+            .menu-item {
+                margin: 10px 0;
+                display: flex;
+                align-items: center;
+                transition: transform 0.3s ease;
+            }
 
-    .menu-item i {
-        margin-right: 5px;
-        color: black;
-    }
+            .menu-item i {
+                margin-right: 5px;
+                color: black;
+            }
 
-    .menu-des {
-        line-height: 40px;
-        display: inline-block;
-        transition: transform 0.3s ease;
-    }
+            .menu-des {
+                line-height: 40px;
+                display: inline-block;
+                transition: transform 0.3s ease;
+            }
 
-    .menu-item a:hover {
-        font-weight: bold;
-        text-decoration: none;
-        transition: text-decoration 0.3s ease;
-    }
+            .menu-item a:hover {
+                font-weight: bold;
+                text-decoration: none;
+                transition: text-decoration 0.3s ease;
+            }
 
-    /* Animación */
-    @keyframes wings-flap {
-        0% {
-            transform: rotate(0deg);
-        }
-        50% {
-            transform: rotate(10deg);
-        }
-        100% {
-            transform: rotate(0deg);
-        }
-    }
+            /* Animación */
+            @keyframes wings-flap {
+                0% {
+                    transform: rotate(0deg);
+                }
+                50% {
+                    transform: rotate(10deg);
+                }
+                100% {
+                    transform: rotate(0deg);
+                }
+            }
 
-    .menu-item:hover {
-        animation: wings-flap 0.5s ease infinite;
-    }
-        </style>
-        `;
+            .menu-item:hover {
+                animation: wings-flap 0.5s ease infinite;
+            }
+                </style>
+                `;
     }
 
     setupListeners() {
         document.addEventListener('click', (event) => {
             if (!this.contains(event.target)) {
-                this.shadowRoot.getElementById('menu').style.left = '-220px'; // Ocultar el menú más al hacer clic fuera de él
+                this.shadowRoot.getElementById('menu').style.left = '-220px'; // Ocultar el menú
             }
         });
     }
