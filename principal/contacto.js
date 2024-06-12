@@ -60,8 +60,8 @@ class DoctorContact extends HTMLElement {
                 border-radius: 10px;
                 overflow: hidden;
                 background-color: white;
-                margin: 10px;
-                padding: 10px;
+                margin: 50px;
+                padding: 20px;
                 max-width: 400px;
                 flex: 1 1 100%;
             }
@@ -107,6 +107,7 @@ class DoctorContact extends HTMLElement {
 }
 
 window.customElements.define('doctor-contact', DoctorContact);
+
 
 class ContactComponent extends HTMLElement {
     constructor() {
@@ -218,11 +219,15 @@ class ContactComponent extends HTMLElement {
                 transition: opacity 0.5s ease-in-out;
                 opacity: 1;
                 flex: 1 1 100%;
+                box-sizing: border-box;
             }
 
             .contact-info {
                 width: 100%;
                 height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
 
             .contact-info h2 {
@@ -237,6 +242,7 @@ class ContactComponent extends HTMLElement {
                 flex-direction: column;
                 align-items: center;
                 width: 100%;
+                max-width: 500px;
             }
 
             label {
@@ -250,7 +256,6 @@ class ContactComponent extends HTMLElement {
                 margin: 5px 0 20px;
                 padding: 10px;
                 width: 100%;
-                max-width: 500px;
                 box-sizing: border-box;
                 border: 1px solid #ced4da;
                 border-radius: 5px;
@@ -317,6 +322,22 @@ class ContactComponent extends HTMLElement {
                 .contact-card {
                     width: 100%;
                     max-width: none;
+                    padding: 10px;
+                }
+                form {
+                    padding: 10px;
+                }
+                .contact-info h2 {
+                    font-size: 1.5em;
+                }
+                label {
+                    font-size: 1em;
+                }
+                input, textarea {
+                    font-size: 0.9em;
+                }
+                button {
+                    font-size: 0.9em;
                 }
             }
         </style>
@@ -430,4 +451,3 @@ class HelpSection extends HTMLElement {
 }
 
 window.customElements.define('help-section', HelpSection);
-
