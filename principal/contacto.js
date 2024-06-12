@@ -60,9 +60,9 @@ class DoctorContact extends HTMLElement {
                 border-radius: 10px;
                 overflow: hidden;
                 background-color: white;
-                margin: 50px;
+                margin: 20px;
                 padding: 20px;
-                max-width: 400px;
+                max-width: 600px;
                 flex: 1 1 100%;
             }
 
