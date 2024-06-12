@@ -105,8 +105,8 @@ class DoctorContact extends HTMLElement {
         this.remove();
     }
 }
-
 window.customElements.define('doctor-contact', DoctorContact);
+
 
 
 class ContactComponent extends HTMLElement {
@@ -346,108 +346,3 @@ class ContactComponent extends HTMLElement {
 }
 
 customElements.define('contact-component', ContactComponent);
-
-class HelpSection extends HTMLElement {
-    constructor() {
-        super();
-        this.shadowDOM = this.attachShadow({ mode: 'open' });
-    }
-
-    connectedCallback() {
-        this.render();
-    }
-
-    render() {
-        this.shadowDOM.innerHTML = `
-            ${this.templateCss()}
-            ${this.template()}
-        `;
-    }
-
-    template() {
-        return `
-        <div class="help-card container">
-            <h2>Ayuda</h2>
-            <p>¿Tiene dudas? Llámenos o agende una cita:</p>
-            <ul>
-                <li>Teléfono: <a href="tel:+34123456789">+34 123 456 789</a></li>
-                <li>Teléfono: <a href="tel:+34987654321">+34 987 654 321</a></li>
-                <li><a href="https://example.com/agendar-cita">Agendar una cita</a></li>
-            </ul>
-        </div>
-        `;
-    }
-
-    templateCss() {
-        return `
-        <style>
-            @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
-            
-            .help-card {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                font-family: Arial, sans-serif;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                border-radius: 10px;
-                overflow: hidden;
-                background-color: #333;
-                color: white;
-                margin: 10px auto;
-                padding: 10px;
-                max-width: 1100px;
-                text-align: center;
-            }
-
-            h2 {
-                margin-top: 0;
-                font-size: 1.5em;
-            }
-
-            p {
-                margin: 10px 0;
-                font-size: 1em;
-            }
-
-            ul {
-                list-style: none;
-                padding: 0;
-            }
-
-            li {
-                margin: 5px 0;
-            }
-
-            a {
-                color: #4fc3f7;
-                text-decoration: none;
-            }
-
-            a:hover {
-                text-decoration: underline;
-            }
-
-            @media (max-width: 768px) {
-                .help-card {
-                    width: 100%;
-                }
-
-                h2 {
-                    font-size: 1.2em;
-                }
-
-                p {
-                    font-size: 0.9em;
-                }
-            }
-        </style>
-        `;
-    }
-
-    disconnectedCallback() {
-        this.remove();
-    }
-}
-
-window.customElements.define('help-section', HelpSection);
