@@ -109,30 +109,46 @@ class DoctorContact extends HTMLElement {
 }
 window.customElements.define('doctor-contact', DoctorContact);
 
-
-//Componente de Formulario Dinámico - Shadow DOM y Plantilla HTML
+// Componente de Formulario Dinámico - Shadow DOM y Plantilla HTML
 class ContactComponent extends HTMLElement {
     constructor() {
+        // Inicializa el componente.
+        // Adjunta el Shadow DOM con mode: 'open' para encapsular el estilo y el contenido
+        // Define una propiedad isRegistering para controlar qué formulario mostrar
+
         super();
         this.shadowDOM = this.attachShadow({ mode: 'open' });
         this.isRegistering = false;
     }
 
     connectedCallback() {
+        // Llama cuando el elemento se agrega al DOM
+        // Renderiza el contenido inicial del componente
+
         this.render();
     }
 
     toggleForm() {
+        // Cambia el estado de isRegistering entre true y false
+        // Llama al método render para actualizar el contenido del componente
+
         this.isRegistering = !this.isRegistering;
         this.render();
     }
 
     render() {
+        // Selecciona la plantilla HTML adecuada basada en el estado de isRegistering
+        // Clona el contenido de la plantilla seleccionada y lo agrega al Shadow DOM
+        // Añade event listeners a los botones de registro y cancelación para alternar el formulario
+
         const templateId = this.isRegistering ? 'registration-template' : 'contact-template';
+        const sharedStyles = document.getElementById('shared-styles');
         const template = document.getElementById(templateId);
         const content = template.content.cloneNode(true);
+        const styles = sharedStyles.content.cloneNode(true);
 
         this.shadowDOM.innerHTML = '';
+        this.shadowDOM.appendChild(styles);
         this.shadowDOM.appendChild(content);
 
         const registerButton = this.shadowDOM.querySelector('.register-button');
