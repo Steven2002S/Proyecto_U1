@@ -19,7 +19,7 @@ class BienvenidoCarousel extends HTMLElement {
     render() {
         const template = document.getElementById('bienvenido-carousel-template');
         if (!template) {
-            console.error('Template not found!');
+            console.error('Template no funciona');
             return;
         }
         const templateContent = template.content.cloneNode(true);
