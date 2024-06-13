@@ -41,7 +41,7 @@ class FaqChat extends HTMLElement {
 
     toggleChatWindow() {
         const chatWindow = this.shadowDOM.querySelector('.chat-window');
-        chatWindow.style.display = chatWindow.style.display === 'none' ? 'block' : 'none';
+        chatWindow.style.display = chatWindow.style.display === 'none' || chatWindow.style.display === '' ? 'block' : 'none';
     }
 
     handleQuestionClick(index) {
@@ -51,6 +51,7 @@ class FaqChat extends HTMLElement {
             <p class="response"><strong>${faq.question}</strong><br>${faq.answer}</p>
         `;
         this.shadowDOM.querySelector('#back-button').style.display = 'block';
+        this.removeQuestionEventListeners();
     }
 
     showQuestions() {
@@ -58,8 +59,20 @@ class FaqChat extends HTMLElement {
         chatContent.innerHTML = faqChatData.map((faq, index) => `
             <p class="question" data-index="${index}">${faq.question}</p>
         `).join('');
-        this.addEventListeners();
+        this.addQuestionEventListeners();
         this.shadowDOM.querySelector('#back-button').style.display = 'none';
+    }
+
+    addQuestionEventListeners() {
+        this.shadowDOM.querySelectorAll('.question').forEach(item => {
+            item.addEventListener('click', (event) => this.handleQuestionClick(event.target.dataset.index));
+        });
+    }
+
+    removeQuestionEventListeners() {
+        this.shadowDOM.querySelectorAll('.question').forEach(item => {
+            item.removeEventListener('click', (event) => this.handleQuestionClick(event.target.dataset.index));
+        });
     }
 
     templateCss() {
