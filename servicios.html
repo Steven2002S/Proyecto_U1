@@ -16,7 +16,7 @@
     <script src="Services/menuDespegable.js"></script>
     <script src="Services/servicios.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script type="module" src="Services/encabezado-servicios.js"></script>
+    <script type="module" src="Services/carousel.js"></script>
 </head>
 
 <body>
@@ -30,8 +30,120 @@
         </menu-desplegable>
     </header>
     <!-- Encabezado de Servicios -->
-    <encabezado-servicios img-srcs="img/carro2.webp,img/carro3.jpg,img/carro4.avif,img/carro5.avif"
-        interval="2500"></encabezado-servicios>
+    <template id="carousel-template">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+            body {
+                font-family: 'Nunito', sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+            h1 {
+                text-align: center;
+                margin-top: 0;
+                padding-top: 20px;
+                justify-content: center;
+            }	
+
+            .page-header {
+                position: relative;
+                width: 100%;
+                height: 50vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                overflow: hidden;
+            }
+
+            .page-header img {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 100%;
+                height: auto;
+                transform: translate(-50%, -50%);
+                z-index: -1;
+                opacity: 0;
+                transition: opacity 1s ease-in-out;
+            }
+
+            .page-header img.active {
+                opacity: 1;
+            }
+
+            .page-header::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.4));
+            }
+
+            .page-header .container {
+                position: relative;
+                z-index: 1;
+                text-align: center;
+
+
+            }
+
+            .header-text {
+                z-index: 2;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                margin-top: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                text-align: center;
+
+            }
+
+            .font-bold {
+                font-weight: bold;
+                text-align: center;
+                margin: 0;
+                padding: 0;
+            }
+
+            .font-bold h1 {
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+            }
+
+
+            .text-white {
+                color: white;
+            }
+
+            .carousel-images {
+                display: flex;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+
+            .carousel-images img {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+            }
+        </style>
+        <div class="page-header">
+            <div class="container">
+                <div class="header-text">
+                </div>
+            </div>
+            <div class="carousel-images">
+            </div>
+        </div>
+    </template>
+    <image-carousel images="img/carro2.webp,img/carro3.jpg,img/carro4.avif,img/carro5.avif"></image-carousel>
     <br>
     <!-- Contenedor de Servicios -->
     <div class="container">

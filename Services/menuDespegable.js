@@ -10,6 +10,11 @@ class MenuDesplegable extends HTMLElement {
     }
 
     render() {
+        this.menuItems = [
+            { icon: 'fas fa-home', text: this.getAttribute('link1-text') || 'Inicio', href: this.getAttribute('link1-href') || 'index.html' },
+            { icon: 'fas fa-concierge-bell', text: this.getAttribute('link2-text') || 'Servicios', href: this.getAttribute('link2-href') || 'servicios.html' },
+            { icon: 'fas fa-envelope', text: this.getAttribute('link3-text') || 'Contacto', href: this.getAttribute('link3-href') || 'contacto.html' }
+        ];
         this.shadowDOM.innerHTML = `
             ${this.templateCss()}
             ${this.templateHTML()}
@@ -19,18 +24,12 @@ class MenuDesplegable extends HTMLElement {
     templateHTML() {
         return `
         <div id="menu">
-            <div class="menu-item">
-                <i class="fas fa-home"></i>
-                <a class="menu-des" href="index.html">Inicio</a>
-            </div>
-            <div class="menu-item">
-                <i class="fas fa-concierge-bell"></i>
-                <a class="menu-des" href="servicios.html">Servicios</a>
-            </div>
-            <div class="menu-item">
-                <i class="fas fa-envelope"></i>
-                <a class="menu-des" href="contacto.html">Contacto</a>
-            </div>
+            ${this.menuItems.map(item => `
+                <div class="menu-item">
+                    <i class="${item.icon}"></i>
+                    <a class="menu-des" href="${item.href}">${item.text}</a>
+                </div>
+            `).join('')}
         </div>
         `;
     }
@@ -40,27 +39,31 @@ class MenuDesplegable extends HTMLElement {
         <style>
             @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
             #menu {
-                width: 100px;
-                background-color: #ADD8E6; 
+                width: 220px;
+                background: linear-gradient(to bottom, #0000FF, #8A2BE2); /* Gradiente de azul a violeta */
                 border-radius: 10px;
-                padding: 20px 8px;
+                padding: 20px;
                 position: fixed;
                 z-index: 100;
-                left: -100px; /* Menú más escondido */
+                left: -220px; /* Menú más escondido */
                 top: 50%;
                 transform: translateY(-50%);
                 transition: left 0.4s ease, background-color 0.4s ease; /* Agregamos la transición para el color de fondo */
-                box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.3), 0 0 15px rgba(138, 43, 226, 0.3), 0 0 15px rgba(0, 0, 255, 0.3); /* Sombra con azul y violeta */
+                color: #fff; /* Color de texto blanco */
             }
 
             #menu:hover {
                 left: 0; /* Mostrar completamente al hacer hover */
-                background-color: #8ac6d1; /* Cambiar el color de fondo al hacer hover */
+                background: linear-gradient(to bottom, #4169E1, #7B68EE); /* Cambiar gradiente al hacer hover */
+                
             }
 
             #menu a {
-                color: black;
+                color: #fff;
                 text-decoration: none;
+                transition: color 0.3s ease;
+                                width: 100px;
             }
 
             .menu-item {
@@ -68,23 +71,26 @@ class MenuDesplegable extends HTMLElement {
                 display: flex;
                 align-items: center;
                 transition: transform 0.3s ease;
+                
             }
 
             .menu-item i {
-                margin-right: 5px;
-                color: black;
+                margin-right: 10px;
+                color: #fff;
+                transition: color 0.3s ease;
             }
 
             .menu-des {
                 line-height: 40px;
                 display: inline-block;
-                transition: transform 0.3s ease;
+                font-size: 1.1rem;
+                transition: transform 0.3s ease, font-weight 0.3s ease;
+                width: 100px;
             }
 
             .menu-item a:hover {
                 font-weight: bold;
-                text-decoration: none;
-                transition: text-decoration 0.3s ease;
+                color: #FFD700; /* Cambiar color del texto al hacer hover */
             }
 
             /* Animación */
@@ -103,20 +109,33 @@ class MenuDesplegable extends HTMLElement {
             .menu-item:hover {
                 animation: wings-flap 0.5s ease infinite;
             }
-                </style>
-                `;
+        </style>
+        `;
     }
 
     setupListeners() {
-        document.addEventListener('click', (event) => {
-            if (!this.contains(event.target)) {
-                this.shadowRoot.getElementById('menu').style.left = '-220px'; // Ocultar el menú
-            }
-        });
+        document.addEventListener('click', this.handleOutsideClick);
+        this.shadowRoot.getElementById('menu').addEventListener('mouseover', this.handleMouseOver.bind(this));
+        this.shadowRoot.getElementById('menu').addEventListener('mouseout', this.handleMouseOut.bind(this));
     }
 
     disconnectedCallback() {
-        this.remove();
+        document.removeEventListener('click', this.handleOutsideClick);
+    }
+
+    handleOutsideClick(event) {
+        const menu = this.shadowRoot.getElementById('menu');
+        if (!menu.contains(event.target)) {
+            menu.style.left = '-220px'; // Ocultar el menú más al hacer clic fuera de él
+        }
+    }
+
+    handleMouseOver() {
+        this.shadowRoot.getElementById('menu').style.left = '0';
+    }
+
+    handleMouseOut() {
+        this.shadowRoot.getElementById('menu').style.left = '-220px';
     }
 }
 window.customElements.define('menu-desplegable', MenuDesplegable);
