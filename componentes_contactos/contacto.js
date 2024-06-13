@@ -1,41 +1,46 @@
-
-//Custom Element parametrizado usando Shadow DOM
+// Custom Element parametrizado usando Shadow DOM
 class DoctorContact extends HTMLElement {
     constructor() {
         super();
+        // Adjunta un Shadow DOM al elemento con el modo 'open', lo que permite que el Shadow DOM sea accesible desde el exterior.
         this.shadowDOM = this.attachShadow({ mode: 'open' });
     }
 
+    // Método llamado cuando el elemento es añadido al DOM.
     connectedCallback() {
-        this.mapComponentAttributes();
-        this.render();
+        this.mapComponentAttributes(); // Mapea los atributos del componente.
+        this.render(); // Renderiza el contenido del componente.
     }
 
+    // Mapea los atributos del componente para asegurarse de que existen.
     mapComponentAttributes() {
         const attributeMapping = [
-            'img-src',
-            'img-width',
-            'img-height',
-            'name',
-            'email',
-            'phone',
-            'address',
-            'role'
+            'img-src', 
+            'img-width', 
+            'img-height', 
+            'name', 
+            'email', 
+            'phone', 
+            'address', 
+            'role' 
         ];
         attributeMapping.forEach(key => {
+            // Si el atributo no existe, se inicializa con un valor vacío.
             if (!this.attributes[key]) {
                 this.attributes[key] = { value: '' };
             }
         });
     }
 
+    // Renderiza el contenido del Shadow DOM.
     render() {
         this.shadowDOM.innerHTML = `
-            ${this.templateCss()}
-            ${this.template()}
+            ${this.templateCss()} 
+            ${this.template()} 
         `;
     }
 
+    // Define el HTML del componente.
     template() {
         return `
         <div class="contact-card">
@@ -51,6 +56,7 @@ class DoctorContact extends HTMLElement {
         `;
     }
 
+    // Define el CSS del componente.
     templateCss() {
         return `
         <style>
@@ -103,11 +109,14 @@ class DoctorContact extends HTMLElement {
         `;
     }
 
+    // Método llamado cuando el elemento es eliminado del DOM.
     disconnectedCallback() {
-        this.remove();
+        this.remove(); // Elimina el componente.
     }
 }
+// Define el nuevo elemento 'doctor-contact' y lo asocia con la clase 'DoctorContact'.
 window.customElements.define('doctor-contact', DoctorContact);
+
 
 // Componente de Formulario Dinámico - Shadow DOM y Plantilla HTML
 class ContactComponent extends HTMLElement {
