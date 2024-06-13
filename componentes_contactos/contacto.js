@@ -174,3 +174,105 @@ class ContactComponent extends HTMLElement {
 }
 
 customElements.define('contact-component', ContactComponent);
+
+
+    // Componente de tabla de asistencia
+    class AttendanceTable extends HTMLElement {
+        constructor() {
+            super();
+        }
+
+        connectedCallback() {
+            this.render();
+        }
+
+        render() {
+            this.innerHTML = `
+                ${this.templateCss()}
+                ${this.templateHTML()}
+            `;
+        }
+
+        templateHTML() {
+            return `
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Doctor</th>
+                            <th>Día</th>
+                            <th>Hora de Inicio</th>
+                            <th>Hora de Fin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Nelson Barahona</td>
+                            <td>Lunes</td>
+                            <td>08:00</td>
+                            <td>12:00</td>
+                        </tr>
+                        <tr>
+                            <td>Dr. Juan Pérez</td>
+                            <td>Martes</td>
+                            <td>10:00</td>
+                            <td>14:00</td>
+                        </tr>
+                        <tr>
+                            <td>Dra. Ana García</td>
+                            <td>Miércoles</td>
+                            <td>09:00</td>
+                            <td>13:00</td>
+                        </tr>
+                        <tr>
+                            <td>Dr. Floril Quintero</td>
+                            <td>Jueves</td>
+                            <td>14:00</td>
+                            <td>18:00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+        }
+
+        templateCss() {
+            return `
+                <style>
+                    .table {
+                        width: 100%;
+                        margin-bottom: 1rem;
+                        color: #212529;
+                    }
+                    .table th,
+                    .table td {
+                        padding: 0.75rem;
+                        vertical-align: top;
+                        border-top: 1px solid #dee2e6;
+                    }
+                    .table thead th {
+                        vertical-align: bottom;
+                        border-bottom: 2px solid #dee2e6;
+                    }
+                    .table tbody + tbody {
+                        border-top: 2px solid #dee2e6;
+                    }
+                    .table-bordered {
+                        border: 1px solid #dee2e6;
+                    }
+                    .table-bordered th,
+                    .table-bordered td {
+                        border: 1px solid #dee2e6;
+                    }
+                    .table-bordered thead th,
+                    .table-bordered thead td {
+                        border-bottom-width: 2px;
+                    }
+                </style>
+            `;
+        }
+
+        disconnectedCallback() {
+            this.remove();
+        }
+    }
+
+    window.customElements.define('attendance-table', AttendanceTable);
