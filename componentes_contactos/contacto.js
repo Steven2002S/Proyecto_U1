@@ -1,3 +1,5 @@
+
+//Custom Element parametrizado usando Shadow DOM
 class DoctorContact extends HTMLElement {
     constructor() {
         super();
@@ -108,7 +110,7 @@ class DoctorContact extends HTMLElement {
 window.customElements.define('doctor-contact', DoctorContact);
 
 
-
+//Componente de Formulario Dinámico - Shadow DOM y Plantilla HTML
 class ContactComponent extends HTMLElement {
     constructor() {
         super();
