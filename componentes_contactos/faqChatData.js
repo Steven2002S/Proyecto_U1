@@ -13,6 +13,6 @@ export const faqChatData = [
     },
     {
         question: "¿Cuál es la dirección del hospital?",
-        answer: "Nuestra dirección es Calle Central 789, 28080 Madrid, España."
+        answer: "Nuestra dirección es Av. quito y galapagos, Santo Domingo, Ecuador."
     }
 ];
