@@ -1,16 +1,21 @@
 import { faqChatData } from './faqChatData.js';
 
+// Definición de la clase FaqChat que extiende HTMLElement
 class FaqChat extends HTMLElement {
     constructor() {
         super();
+        // Adjuntar el Shadow DOM en modo 'open'
         this.shadowDOM = this.attachShadow({ mode: 'open' });
     }
 
+    // Método que se llama cuando el componente se añade al DOM
     connectedCallback() {
         this.render();
     }
 
+    // Método para renderizar el contenido del componente
     render() {
+        // Crear una plantilla HTML
         const template = document.createElement('template');
         template.innerHTML = `
             ${this.templateCss()}
@@ -27,10 +32,12 @@ class FaqChat extends HTMLElement {
                 </div>
             </div>
         `;
+        // Adjuntar la plantilla al Shadow DOM
         this.shadowDOM.appendChild(template.content.cloneNode(true));
         this.addEventListeners();
     }
 
+    // Método para añadir los event listeners
     addEventListeners() {
         this.shadowDOM.querySelector('.floating-ball').addEventListener('click', () => this.toggleChatWindow());
         this.shadowDOM.querySelectorAll('.question').forEach(item => {
@@ -39,11 +46,13 @@ class FaqChat extends HTMLElement {
         this.shadowDOM.querySelector('#back-button').addEventListener('click', () => this.showQuestions());
     }
 
+    // Método para mostrar u ocultar la ventana de chat
     toggleChatWindow() {
         const chatWindow = this.shadowDOM.querySelector('.chat-window');
         chatWindow.style.display = chatWindow.style.display === 'none' || chatWindow.style.display === '' ? 'block' : 'none';
     }
 
+    // Método para manejar el clic en una pregunta
     handleQuestionClick(index) {
         const faq = faqChatData[index];
         const chatContent = this.shadowDOM.querySelector('.chat-content');
@@ -54,6 +63,7 @@ class FaqChat extends HTMLElement {
         this.removeQuestionEventListeners();
     }
 
+    // Método para mostrar las preguntas
     showQuestions() {
         const chatContent = this.shadowDOM.querySelector('.chat-content');
         chatContent.innerHTML = faqChatData.map((faq, index) => `
@@ -63,18 +73,21 @@ class FaqChat extends HTMLElement {
         this.shadowDOM.querySelector('#back-button').style.display = 'none';
     }
 
+    // Método para añadir event listeners a las preguntas
     addQuestionEventListeners() {
         this.shadowDOM.querySelectorAll('.question').forEach(item => {
             item.addEventListener('click', (event) => this.handleQuestionClick(event.target.dataset.index));
         });
     }
 
+    // Método para remover event listeners de las preguntas
     removeQuestionEventListeners() {
         this.shadowDOM.querySelectorAll('.question').forEach(item => {
             item.removeEventListener('click', (event) => this.handleQuestionClick(event.target.dataset.index));
         });
     }
 
+    // Método para definir los estilos CSS
     templateCss() {
         return `
         <style>
@@ -149,9 +162,11 @@ class FaqChat extends HTMLElement {
         `;
     }
 
+    // Método que se llama cuando el componente se desconecta del DOM
     disconnectedCallback() {
         this.remove();
     }
 }
 
+// Definir el nuevo elemento personalizado
 window.customElements.define('faq-chat', FaqChat);
