@@ -18,14 +18,18 @@
     <script src="principal/footer.js"></script>
     <script src="principal/informacion.js"></script>
     <script type="module" src="principal/acercaDe.js"></script>
-   
+
 
 </head>
 
 <body>
     <header>
-        <barra-navegacion></barra-navegacion>
-        <menu-desplegable></menu-desplegable>
+        <barra-navegacion brand-title="VIDA SALUDABLE" link1-href="index.html" link1-text="Inicio"
+            link2-href="servicios.html" link2-text="Servicios" link3-href="contacto.html" link3-text="Contacto">
+        </barra-navegacion>
+        <menu-desplegable link1-text="Inicio" link1-href="index.html" link2-text="Servicios" link2-href="servicios.html"
+            link3-text="Contacto" link3-href="contacto.html">
+        </menu-desplegable>
     </header>
 
     <main>
@@ -34,33 +38,25 @@
         <div class="container mt-5">
             <div class="row">
                 <div class="col-md-4">
-                    <card-component
-                        img-src="imgPrincipal/servicios.jpg"
-                        img-alt="Servicios Médicos"
+                    <card-component img-src="imgPrincipal/servicios.jpg" img-alt="Servicios Médicos"
                         title="Servicios Médicos"
                         text="Ofrecemos una amplia gama de servicios médicos de alta calidad, incluyendo consultas especializadas, cirugía, cuidados intensivos y más.">
                     </card-component>
                 </div>
                 <div class="col-md-4">
-                    <card-component
-                        img-src="imgPrincipal/equipo.jpg"
-                        img-alt="Equipo Médico"
-                        title="Equipo Médico"
+                    <card-component img-src="imgPrincipal/equipo.jpg" img-alt="Equipo Médico" title="Equipo Médico"
                         text="Nuestro equipo de profesionales está compuesto por médicos, enfermeras y personal altamente calificado y dedicado a tu bienestar.">
                     </card-component>
                 </div>
                 <div class="col-md-4">
-                    <card-component
-                        img-src="imgPrincipal/contacto.jpg"
-                        img-alt="Contacto"
-                        title="Contacto"
+                    <card-component img-src="imgPrincipal/contacto.jpg" img-alt="Contacto" title="Contacto"
                         text="Estamos aquí para ayudarte. Contáctanos para programar una cita o para cualquier consulta. Nuestro equipo de atención al cliente está disponible las 24 horas.">
                     </card-component>
                 </div>
             </div>
         </div>
 
-        
+
     </main>
 
 
