@@ -1,3 +1,6 @@
+//--------------------------------------------------------------------------------------------------------//
+//-------------------------------SHADOW DOM ---- BARRA NAVEGACION-----------------------------------------//
+//--------------------------------------------------------------------------------------------------------//
 class BarraNavegacion extends HTMLElement {
     constructor() {
         super();
@@ -12,7 +15,7 @@ class BarraNavegacion extends HTMLElement {
     addEventListeners() {
         const toggler = this.shadowDOM.querySelector('.navbar-toggler');
         const collapse = this.shadowDOM.querySelector('#navbarCollapse');
-        
+
         toggler.addEventListener('click', () => {
             collapse.classList.toggle('show');
         });
@@ -141,7 +144,10 @@ window.customElements.define('barra-navegacion', BarraNavegacion);
 
 
 
-// menu-desplegable.js
+//--------------------------------------------------------------------------------------------------------//
+//-------------------------------SHADOW DOM ---- MENU DESPLEGABLE-----------------------------------------//
+//--------------------------------------------------------------------------------------------------------//
+
 class MenuDesplegable extends HTMLElement {
     constructor() {
         super();
@@ -197,16 +203,15 @@ class MenuDesplegable extends HTMLElement {
                 color: #fff; /* Color de texto blanco */
             }
 
-            #menu:hover {
-                left: 0; /* Mostrar completamente al hacer hover */
-                background: linear-gradient(to bottom, #4169E1, #7B68EE); /* Cambiar gradiente al hacer hover */
-            }
+    #menu:hover {
+        left: 0; /* Mostrar completamente al hacer hover */
+        background-color: #8ac6d1; /* Cambiar el color de fondo al hacer hover */
+    }
 
-            #menu a {
-                color: #fff;
-                text-decoration: none;
-                transition: color 0.3s ease;
-            }
+    #menu a {
+        color: black;
+        text-decoration: none;
+    }
 
             .menu-item {
                 margin: 10px 0;
@@ -215,23 +220,22 @@ class MenuDesplegable extends HTMLElement {
                 transition: transform 0.3s ease;
             }
 
-            .menu-item i {
-                margin-right: 10px;
-                color: #fff;
-                transition: color 0.3s ease;
-            }
+    .menu-item i {
+        margin-right: 5px;
+        color: black;
+    }
 
-            .menu-des {
-                line-height: 40px;
-                display: inline-block;
-                font-size: 1.1rem;
-                transition: transform 0.3s ease, font-weight 0.3s ease;
-            }
+    .menu-des {
+        line-height: 40px;
+        display: inline-block;
+        transition: transform 0.3s ease;
+    }
 
-            .menu-item a:hover {
-                font-weight: bold;
-                color: #FFD700; /* Cambiar color del texto al hacer hover */
-            }
+    .menu-item a:hover {
+        font-weight: bold;
+        text-decoration: none;
+        transition: text-decoration 0.3s ease;
+    }
 
             /* Animación */
             @keyframes wings-flap {
@@ -246,17 +250,19 @@ class MenuDesplegable extends HTMLElement {
                 }
             }
 
-            .menu-item:hover {
-                animation: wings-flap 0.5s ease infinite;
-            }
+    .menu-item:hover {
+        animation: wings-flap 0.5s ease infinite;
+    }
         </style>
         `;
     }
 
     setupListeners() {
-        document.addEventListener('click', this.handleOutsideClick);
-        this.shadowRoot.getElementById('menu').addEventListener('mouseover', this.handleMouseOver.bind(this));
-        this.shadowRoot.getElementById('menu').addEventListener('mouseout', this.handleMouseOut.bind(this));
+        document.addEventListener('click', (event) => {
+            if (!this.contains(event.target)) {
+                this.shadowRoot.getElementById('menu').style.left = '-220px'; // Ocultar el menú más al hacer clic fuera de él
+            }
+        });
     }
 
     disconnectedCallback() {
