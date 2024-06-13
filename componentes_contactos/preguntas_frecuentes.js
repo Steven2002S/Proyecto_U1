@@ -71,7 +71,7 @@ class FaqChat extends HTMLElement {
                 right: 20px;
                 width: 50px;
                 height: 50px;
-                background-color: #007bff;
+                background-color: #0000FF;
                 border-radius: 50%;
                 display: flex;
                 justify-content: center;
