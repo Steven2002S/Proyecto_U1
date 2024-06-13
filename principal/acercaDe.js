@@ -95,11 +95,11 @@ class AcercaDe extends HTMLElement {
             </style>
             <div class="about-container">
                 ${this.createSection(acercaDeTexto.acercaDe)}
-                <hr class="styled-line">
                 ${this.createSection(acercaDeTexto.mission)}
-                <hr class="styled-line">
                 ${this.createSection(acercaDeTexto.vision)}
             </div>
+            <hr class="styled-line">
+
         `;
     }
 

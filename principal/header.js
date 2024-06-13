@@ -143,3 +143,4 @@ class BarraNavegacion extends HTMLElement {
 window.customElements.define('barra-navegacion', BarraNavegacion);
 
 
+
